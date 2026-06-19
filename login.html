@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인/회원가입 - Campus Book</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <main class="page-main auth-page">
+    <div class="auth-card">
+      
+      <!-- Tab Buttons for Switch -->
+      <div style="display: flex; margin-bottom: 30px; border-bottom: 1px solid var(--border-color);">
+        <button id="tab-login-btn" class="tab-btn active" style="flex: 1; text-align: center; padding-bottom: 12px;" onclick="switchTab('login')">로그인</button>
+        <button id="tab-signup-btn" class="tab-btn" style="flex: 1; text-align: center; padding-bottom: 12px;" onclick="switchTab('signup')">회원가입</button>
+      </div>
+
+      <!-- 1. LOGIN FORM -->
+      <div id="login-section">
+        <div class="auth-header">
+          <h2>캠퍼스 북 로그인</h2>
+          <p>대학생을 위한 중고 전공서적 직거래 장터</p>
+        </div>
+        
+        <div id="login-error" class="badge badge-warning" style="display: none; width: 100%; padding: 12px; margin-bottom: 20px; border-radius: var(--radius-md); font-weight: 500; font-size: 0.85rem; line-height: 1.4; align-items: center; gap: 8px;">
+          <i class="ri-error-warning-line" style="font-size: 1.1rem;"></i>
+          <span id="login-error-text">오류가 발생했습니다.</span>
+        </div>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-email">학교 이메일</label>
+            <input type="email" id="login-email" class="form-control" placeholder="example@snu.ac.kr" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" for="login-password">비밀번호</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">로그인</button>
+        </form>
+      </div>
+
+      <!-- 2. SIGNUP FORM -->
+      <div id="signup-section" style="display: none;">
+        <div class="auth-header">
+          <h2>새 계정 만들기</h2>
+          <p>학교 인증을 위해 대학 이메일이 필요합니다.</p>
+        </div>
+
+        <div id="signup-error" class="badge badge-warning" style="display: none; width: 100%; padding: 12px; margin-bottom: 20px; border-radius: var(--radius-md); font-weight: 500; font-size: 0.85rem; line-height: 1.4; align-items: center; gap: 8px;">
+          <i class="ri-error-warning-line" style="font-size: 1.1rem;"></i>
+          <span id="signup-error-text">오류가 발생했습니다.</span>
+        </div>
+
+        <form id="signup-form" onsubmit="handleSignup(event)">
+          <div class="form-group">
+            <label class="form-label" for="signup-email">학교 이메일 (.ac.kr 또는 .edu)</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="yourname@univ.ac.kr" required>
+            <span style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">* 대학 소속 인증을 위한 이메일 형식만 허용됩니다.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-nickname">닉네임</label>
+            <input type="text" id="signup-nickname" class="form-control" placeholder="캠퍼스 인싸" maxlength="15" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-school">소속 대학교</label>
+            <select id="signup-school" class="form-control" required>
+              <option value="" disabled selected>대학교를 선택하세요</option>
+              <option value="서울대학교">서울대학교</option>
+              <option value="연세대학교">연세대학교</option>
+              <option value="고려대학교">고려대학교</option>
+              <option value="서강대학교">서강대학교</option>
+              <option value="성균관대학교">성균관대학교</option>
+              <option value="한양대학교">한양대학교</option>
+              <option value="이화여자대학교">이화여자대학교</option>
+              <option value="중앙대학교">중앙대학교</option>
+              <option value="경희대학교">경희대학교</option>
+              <option value="한국외국어대학교">한국외국어대학교</option>
+              <option value="서울시립대학교">서울시립대학교</option>
+              <option value="카이스트">KAIST (카이스트)</option>
+              <option value="포스텍">POSTECH (포스텍)</option>
+              <option value="부산대학교">부산대학교</option>
+              <option value="경북대학교">경북대학교</option>
+              <option value="기타 대학교">기타 대학교</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label class="form-label" for="signup-password">비밀번호</label>
+            <input type="password" id="signup-password" class="form-control" placeholder="6자리 이상 비밀번호 입력" minlength="6" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">회원가입</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Tab toggle logic
+    function switchTab(tab) {
+      const loginSection = document.getElementById("login-section");
+      const signupSection = document.getElementById("signup-section");
+      const loginBtn = document.getElementById("tab-login-btn");
+      const signupBtn = document.getElementById("tab-signup-btn");
+      
+      // Clear errors
+      document.getElementById("login-error").style.display = "none";
+      document.getElementById("signup-error").style.display = "none";
+
+      if (tab === "login") {
+        loginSection.style.display = "block";
+        signupSection.style.display = "none";
+        loginBtn.classList.add("active");
+        signupBtn.classList.remove("active");
+      } else {
+        loginSection.style.display = "none";
+        signupSection.style.display = "block";
+        loginBtn.classList.remove("active");
+        signupBtn.classList.add("active");
+      }
+    }
+
+    // Parse URL parameter to show correct tab initially
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("tab") === "signup") {
+        switchTab("signup");
+      }
+    });
+
+    // Get redirection path
+    function getRedirectPath() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("redirect") || "index.html";
+    }
+
+    // Login Action
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+      const errorDiv = document.getElementById("login-error");
+      const errorText = document.getElementById("login-error-text");
+
+      errorDiv.style.display = "none";
+
+      const res = window.Auth.login(email, password);
+      if (res.success) {
+        window.location.href = getRedirectPath();
+      } else {
+        errorText.textContent = res.message;
+        errorDiv.style.display = "flex";
+      }
+    }
+
+    // Signup Action
+    function handleSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value.trim();
+      const nickname = document.getElementById("signup-nickname").value.trim();
+      const school = document.getElementById("signup-school").value;
+      const password = document.getElementById("signup-password").value;
+      
+      const errorDiv = document.getElementById("signup-error");
+      const errorText = document.getElementById("signup-error-text");
+      errorDiv.style.display = "none";
+
+      // Email domain validation (.ac.kr or .edu)
+      const domainRegex = /\.(ac\.kr|edu)$/i;
+      if (!domainRegex.test(email)) {
+        errorText.textContent = "대학 이메일 주소(끝자리가 .ac.kr 또는 .edu)를 사용해야 가입할 수 있습니다.";
+        errorDiv.style.display = "flex";
+        return;
+      }
+
+      const res = window.Auth.register(email, nickname, password, school);
+      if (res.success) {
+        window.location.href = getRedirectPath();
+      } else {
+        errorText.textContent = res.message;
+        errorDiv.style.display = "flex";
+      }
+    }
+  </script>
+</body>
+</html>

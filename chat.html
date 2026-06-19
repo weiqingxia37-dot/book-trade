@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쪽지함 - Campus Book</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Full height chat styling override */
+    body {
+      overflow: hidden; /* Avoid double scrolling */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <!-- Full-Page Chat Container -->
+  <main class="chat-container">
+    
+    <!-- Left Chatroom List Sidebar -->
+    <section class="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <h2>쪽지함</h2>
+      </div>
+      
+      <div class="chat-room-list" id="chat-rooms-container">
+        <!-- Rendered dynamically by chat.js -->
+        <div style="padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+          쪽지방 목록을 불러오는 중입니다...
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Chat messages panel -->
+    <section class="chat-main" id="chat-main-window">
+      <!-- 1. Placeholder screen (no chat selected) -->
+      <div class="chat-no-room" id="no-room-placeholder">
+        <i class="ri-message-3-line"></i>
+        <h3>내 쪽지 대화방</h3>
+        <p style="margin-top: 8px; font-size: 0.9rem; max-width: 280px; line-height: 1.5;">
+          왼쪽 목록에서 대화방을 선택하거나, 교재 상세 페이지에서 '쪽지 거래하기'를 통해 대화를 시작해보세요.
+        </p>
+      </div>
+
+      <!-- 2. Active chat messages interface (hidden by default) -->
+      <div id="active-chat-interface" style="display: none; flex-direction: column; flex: 1; height: 100%;">
+        <!-- Active Chat Header -->
+        <div class="chat-header">
+          <div class="chat-header-info">
+            <span class="chat-header-name" id="chat-header-partner-name">상대방 이름</span>
+            <div class="chat-header-details">
+              <span id="chat-header-partner-school">학교명</span>
+              <span style="color: var(--border-color);">|</span>
+              <span>거래교재: <a href="" id="chat-header-book-link">교재제목</a></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrollable Messages Window -->
+        <div class="chat-messages" id="chat-messages-container">
+          <!-- Rendered dynamically by chat.js -->
+        </div>
+
+        <!-- Chat Input Form Footer -->
+        <div class="chat-footer">
+          <form id="chat-send-form" onsubmit="handleSendMessage(event)">
+            <div class="chat-input-form">
+              <input type="text" id="chat-message-input" placeholder="메시지를 입력하세요..." autocomplete="off" required>
+              <button type="submit" aria-label="전송"><i class="ri-send-plane-2-fill"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

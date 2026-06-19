@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교재 상세 정보 - Campus Book</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <main class="page-main">
+    <div class="container">
+      
+      <!-- Back Button -->
+      <div style="margin-bottom: 24px;">
+        <a href="index.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">
+          <i class="ri-arrow-left-line"></i> 목록으로 돌아가기
+        </a>
+      </div>
+
+      <!-- Detail Layout Container -->
+      <div class="detail-grid" id="detail-loading-placeholder">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 100px 0; color: var(--text-muted);">
+          <i class="ri-loader-4-line ri-spin" style="font-size: 2.5rem; display: block; margin-bottom: 12px;"></i>
+          도서 정보를 불러오는 중입니다...
+        </div>
+      </div>
+
+      <!-- Real Detail View (Rendered by detail.js) -->
+      <div class="detail-grid" id="detail-view-container" style="display: none;">
+        <!-- Left: Image Box -->
+        <div class="detail-img-container" id="detail-img-wrapper">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Right: Info Panel -->
+        <div class="detail-info">
+          <div class="detail-meta-header">
+            <span class="badge badge-primary" id="detail-category">카테고리</span>
+            <span class="badge badge-info" id="detail-condition">상태</span>
+          </div>
+
+          <h1 class="detail-title" id="detail-title">교재 제목</h1>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; font-size: 0.95rem; color: var(--text-sub);">
+            <div><strong>저자:</strong> <span id="detail-author">저자명</span></div>
+            <div><strong>출판사:</strong> <span id="detail-publisher">출판사명</span></div>
+            <div><strong>등록시간:</strong> <span id="detail-date">방금 전</span></div>
+          </div>
+
+          <div class="detail-price-box">
+            <span class="detail-price-label">판매 희망 가격</span>
+            <span class="detail-price-value" id="detail-price">0원</span>
+          </div>
+
+          <!-- Seller Info -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">
+              <i class="ri-user-smile-line" style="color: var(--primary);"></i>
+              판매자 정보
+            </h3>
+            <div class="seller-card">
+              <div class="seller-profile">
+                <div class="seller-avatar" id="seller-avatar">상</div>
+                <div>
+                  <div class="seller-name" id="seller-name">닉네임</div>
+                  <div class="seller-school">
+                    <i class="ri-map-pin-2-fill"></i>
+                    <span id="seller-school">소속학교</span>
+                  </div>
+                </div>
+              </div>
+              <div class="seller-trust">
+                <div class="trust-temp-label">신뢰도 온도</div>
+                <div class="trust-temp-value"><span id="seller-trust-value">36.5</span>℃</div>
+                <div class="trust-progress">
+                  <div class="trust-progress-bar" id="seller-trust-bar" style="width: 36.5%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">
+              <i class="ri-article-line" style="color: var(--primary);"></i>
+              상세 설명
+            </h3>
+            <div class="detail-desc-content" id="detail-desc">
+              상세 내용 설명입니다.
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="detail-actions">
+            <!-- Bookmark Toggle -->
+            <button class="btn btn-secondary" id="detail-bookmark-btn" style="padding: 12px;" aria-label="찜하기">
+              <i class="ri-heart-line" style="font-size: 1.2rem;"></i>
+            </button>
+            <!-- Chat Coordinator -->
+            <button class="btn btn-primary" id="detail-chat-btn" style="flex: 1;">
+              <i class="ri-message-3-line"></i> 쪽지 거래하기 (대화 시작)
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>

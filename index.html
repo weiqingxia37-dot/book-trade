@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Book - 대학생 전용 중고 교재 직거래 플랫폼</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <main class="page-main">
+    <div class="container">
+      
+      <!-- Hero Banner & Search -->
+      <section class="hero-section">
+        <h1 class="hero-title">대학생 전용 중고 교재 직거래</h1>
+        <p class="hero-subtitle">더 이상 비싼 가격에 새 책 사지 마세요. 우리 캠퍼스 동기들과 빠르고 안전하게 중고 교안을 거래해 보세요.</p>
+        
+        <!-- Search Input -->
+        <div class="search-container">
+          <form onsubmit="handleSearchSubmit(event)">
+            <div class="search-input-wrapper">
+              <span class="search-icon-btn"><i class="ri-search-line"></i></span>
+              <input type="text" id="main-search-input" class="search-input" placeholder="도서명, 저자, 과목명으로 검색..." autocomplete="off">
+              <button type="submit" class="search-submit-btn">
+                <span>검색</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Category Filter Chips -->
+      <section class="categories-container" id="category-chips-container">
+        <button class="category-chip active" data-category="전체">전체</button>
+        <button class="category-chip" data-category="전공교재">전공교재</button>
+        <button class="category-chip" data-category="교양교재">교양교재</button>
+        <button class="category-chip" data-category="수업 연습서">수업 연습서</button>
+        <button class="category-chip" data-category="기타 도서">기타 도서</button>
+      </section>
+
+      <!-- Latest Listings Section -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="ri-book-3-line" style="color: var(--primary);"></i>
+            <span id="list-title">최신 등록 도서</span>
+          </h2>
+          <span style="font-size: 0.9rem; color: var(--text-muted);" id="list-count-badge">전체 0개</span>
+        </div>
+
+        <!-- Book Card Grid -->
+        <div class="books-grid" id="books-grid-container">
+          <!-- Rendered dynamically by main.js -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Floating Register Button (FAB) -->
+  <a href="register.html" class="fab" id="fab-register" aria-label="교재 등록하기">
+    <i class="ri-add-line"></i>
+  </a>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지 - Campus Book</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <main class="page-main">
+    <div class="container">
+      
+      <!-- User Profile Header -->
+      <section class="profile-section">
+        <div class="profile-avatar-large" id="profile-avatar">U</div>
+        <div class="profile-info">
+          <h3 id="profile-nickname">사용자 닉네임</h3>
+          <p style="margin-bottom: 8px;">
+            <i class="ri-map-pin-2-fill" style="color: var(--primary);"></i>
+            <span id="profile-school">소속 대학교</span>
+            <span style="color: var(--border-color); margin: 0 8px;">|</span>
+            <i class="ri-mail-line"></i>
+            <span id="profile-email">email@univ.ac.kr</span>
+          </p>
+          
+          <!-- Trust Temperature -->
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
+            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-sub);">내 매너 온도:</span>
+            <span style="font-weight: 800; color: var(--secondary);" id="profile-trust-value">36.5</span>
+            <span style="font-weight: 800; color: var(--secondary);">℃</span>
+            <div class="trust-progress" style="width: 120px; height: 8px; margin-top: 0;">
+              <div class="trust-progress-bar" id="profile-trust-bar" style="width: 36.5%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs Navigation -->
+      <nav class="tab-nav">
+        <button class="tab-btn active" id="tab-listings-btn" onclick="switchMyTab('listings')">
+          내가 등록한 책 (<span id="listings-count">0</span>)
+        </button>
+        <button class="tab-btn" id="tab-bookmarks-btn" onclick="switchMyTab('bookmarks')">
+          내가 찜한 책 (<span id="bookmarks-count">0</span>)
+        </button>
+      </nav>
+
+      <!-- 1. Listings Content -->
+      <section id="tab-listings-content">
+        <div class="books-grid" id="my-listings-grid">
+          <!-- Rendered dynamically by mypage.js -->
+        </div>
+      </section>
+
+      <!-- 2. Bookmarks Content -->
+      <section id="tab-bookmarks-content" style="display: none;">
+        <div class="books-grid" id="my-bookmarks-grid">
+          <!-- Rendered dynamically by mypage.js -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/mypage.js"></script>
+</body>
+</html>

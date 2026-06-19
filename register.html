@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교재 등록/수정 - Campus Book</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Dynamic GNB -->
+  <header id="gnb"></header>
+
+  <main class="page-main">
+    <div class="container" style="max-width: 760px;">
+      
+      <!-- Card Container -->
+      <div style="background: var(--surface); border: 1px solid var(--border-color); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+        
+        <div style="margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+          <h2 id="register-page-title" style="font-size: 1.6rem; font-weight: 800;">판매 교재 등록</h2>
+          <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 4px;">도서 상태와 가격을 명확히 작성할수록 직거래가 빠르게 진행됩니다.</p>
+        </div>
+
+        <form id="register-form" onsubmit="handleFormSubmit(event)">
+          
+          <!-- Image Upload Area -->
+          <div class="form-group">
+            <label class="form-label">책 사진 업로드</label>
+            <div class="image-upload-area">
+              <i class="ri-image-add-line"></i>
+              <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 4px;">클릭하거나 이미지를 드래그하여 업로드하세요</p>
+              <p style="color: var(--text-muted); font-size: 0.8rem;">(PNG, JPG 파일 지원, 최대 1장)</p>
+              <input type="file" id="book-image-input" class="image-upload-input" accept="image/*" onchange="processImageUpload(this)">
+            </div>
+            
+            <!-- Preview Grid -->
+            <div class="image-preview-container" id="image-preview-container" style="display: none;">
+              <div class="image-preview-item">
+                <img id="image-preview-img" src="" alt="미리보기">
+                <button type="button" class="image-preview-delete" onclick="removeUploadedImage()" aria-label="삭제">
+                  <i class="ri-close-line"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <div class="form-group">
+            <label class="form-label" for="book-title">도서명 (책 제목) *</label>
+            <input type="text" id="book-title" class="form-control" placeholder="도서명 그대로 정확히 입력해 주세요" required>
+          </div>
+
+          <!-- Author & Publisher -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="book-author">저자 *</label>
+              <input type="text" id="book-author" class="form-control" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="book-publisher">출판사</label>
+              <input type="text" id="book-publisher" class="form-control" placeholder="한빛아카데미">
+            </div>
+          </div>
+
+          <!-- Price & Category -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="book-price">판매 가격 (원) *</label>
+              <input type="number" id="book-price" class="form-control" placeholder="판매 희망가 입력 (예: 15000)" min="0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="book-category">카테고리 선택 *</label>
+              <select id="book-category" class="form-control" required>
+                <option value="" disabled selected>선택해 주세요</option>
+                <option value="전공교재">전공교재</option>
+                <option value="교양교재">교양교재</option>
+                <option value="수업 연습서">수업 연습서</option>
+                <option value="기타 도서">기타 도서</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Book Condition -->
+          <div class="form-group">
+            <label class="form-label">도서 상태 선택 *</label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px;">
+              <label style="border: 1px solid var(--border-color); padding: 12px 6px; border-radius: var(--radius-md); text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <input type="radio" name="book-condition" value="새책 수준" required style="accent-color: var(--primary);">
+                <span style="font-size: 0.85rem; font-weight: 600;">새책 수준</span>
+              </label>
+              <label style="border: 1px solid var(--border-color); padding: 12px 6px; border-radius: var(--radius-md); text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <input type="radio" name="book-condition" value="매우 좋음" style="accent-color: var(--primary);">
+                <span style="font-size: 0.85rem; font-weight: 600;">매우 좋음</span>
+              </label>
+              <label style="border: 1px solid var(--border-color); padding: 12px 6px; border-radius: var(--radius-md); text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <input type="radio" name="book-condition" value="사용감 있음" style="accent-color: var(--primary);">
+                <span style="font-size: 0.85rem; font-weight: 600;">사용감 있음</span>
+              </label>
+              <label style="border: 1px solid var(--border-color); padding: 12px 6px; border-radius: var(--radius-md); text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <input type="radio" name="book-condition" value="필기 많음" style="accent-color: var(--primary);">
+                <span style="font-size: 0.85rem; font-weight: 600;">필기 많음</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group" style="margin-bottom: 30px;">
+            <label class="form-label" for="book-desc">상세 설명 *</label>
+            <textarea id="book-desc" class="form-control" placeholder="상세한 책 정보(예: 필기 여부, 훼손 부위, 직거래 장소/시간 조율 힌트 등)를 적어주세요. 상세히 적을수록 문의가 더 잘 옵니다." required></textarea>
+          </div>
+
+          <!-- Submit Actions -->
+          <div style="display: flex; gap: 16px;">
+            <a href="index.html" class="btn btn-secondary" style="flex: 1;">취소</a>
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="flex: 2;">교재 등록하기</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
